@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% if user.is_authenticated %}
+    {% block head %}
+    <h1>Main Page for {{ user.username }}</h1>
+    {% endblock %}
+
+    {% block body %}
+    <h2>Welcome to your cool personal page.</h2>
+    <h2>Here <a href="/logout/">HERE</a> to logout</h2>
+    {% endblock %}
+
+{% else %}
+    <h1>Login Required</h1>
+    <h2>please <a href="/login">login</a> to enter your profile.</h2>s
+{% endif %}

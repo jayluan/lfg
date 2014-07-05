@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block head %}
+<h1>Sign Up For This Awesome Service!</h1>
+{% endblock %}
+
+{% block body %}
+<h2>Be awesome and sign up for our awesome service</h2>
+<p>We're cool, and if you want to be just as cool, you'll sign up</p>
+
+<section>
+    <form method="post" action=".">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <input type="submit" value="Sign up">
+    </form>
+</section>
+{% endblock %}

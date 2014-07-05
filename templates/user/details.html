@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block head %}
+<meta charset="UTF-8">
+<title></title>
+{% endblock %}
+
+{% block body %}
+<h1>User Details</h1>
+<h2>This page displays details on the user</h2>
+<br>
+<br>
+{% if user %}
+    <h3><b>Name:</b></h3>
+    <h4><i>{{ user.first_name|default:"Not Provided" }}</i></h4>
+    <h3><b>Email:</b></h3>
+    <h4><i>{{ user.email|default:"Not Provided" }}</i></h4>
+{% endif %}
+<br>
+<br>
+<h2>Here <a href="/logout/">HERE</a> to logout</h2>
+
+{% endblock %}
