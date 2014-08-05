@@ -1,16 +1,15 @@
 from django.db import models
-from django.contrib.auth.models import User
+from registration.signals import user_registered
+from UserProfile.models import UserProfile
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User)
-    languages = models.TextField()
-    about = models.TextField()
-    site = models.TextField()
 
-class BasicGroup(models.Model):
-    name = models.CharField(max_length=256)
-    description = models.TextField()
-    date_created = models.DateTimeField()
-    date_action = models.DateTimeField()
-    users = models.OneToOneField(UserProfile)  #list of users
-    group_size = models.IntegerField()         #max number of users
+#callback and connection for creating a new user profile after someone registers
+def user_registered_callback(sender, user, request, **kwargs):
+    profile = UserProfile(user=user)
+    user.first_name = request.POST["first_name"]
+    user.last_name = request.POST["last_name"]
+    user.save()
+    profile.save()
+
+#connect all signals
+user_registered.connect(user_registered_callback)

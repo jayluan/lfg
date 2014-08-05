@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+{% block head %}
+<h1>User Profile</h1>
+{% endblock %}
+
+{%block body %}
+<p>
+<form enctype="multipart/form-data" action="/accounts/editprofile/" method="POST">
+{% csrf_token %}
+{% if user_profile.picture %}
+<p><img border="0" alt="Profile Pic" src="{{ user_profile.picture.url }}" /></p>
+{% endif %}
+
+Profile Pic: {{ pf.picture }}
+<table>{{ pf.as_table }}</table>
+<input type="submit" value="Update" id="submit" />
+
+<h1><a href="/accounts/profile/">Back To Profile</a> </h1>
+</form>
+</p>
+{% endblock %}

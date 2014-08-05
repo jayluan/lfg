@@ -6,8 +6,23 @@
     {% endblock %}
 
     {% block body %}
-    <h2>Welcome to your cool personal page.</h2>
-    <h2>Here <a href="/logout/">HERE</a> to logout</h2>
+    <h1>User Details (<a href="/accounts/editprofile/">Edit</a>)</h1>
+    <h2>This page displays details on the user</h2>
+    <h1><a href="/groups/new/">Create New Group</a> </h1>
+    <br>
+    <br>
+    {% if user %}
+        <h3><b>Name:</b></h3>
+        <h4><i>{{ user.first_name|default:"Not Provided" }}</i></h4>
+        <h3><b>Email:</b></h3>
+        <h4><i>{{ user.email|default:"Not Provided" }}</i></h4>
+    {% endif %}
+    <br>
+    <br>
+    <h2>Click <a href="/logout/">HERE</a> to logout</h2>
+
+        <h2>Welcome to your cool personal page.</h2>
+
     {% endblock %}
 
 {% else %}

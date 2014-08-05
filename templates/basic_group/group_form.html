@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+<script>
+    $(function() {
+        $( "#id_date_action" ).datepicker();
+    });
+</script>
+<h1>New Group</h1>
+{% endblock %}
+
+{% block body %}
+<form action="/groups/new/" method="POST">
+{% csrf_token %}
+<table>
+    {{ form.as_table }}
+</table>
+<p><input type="submit" value="Create!" </p>
+</form>
+{% endblock %}

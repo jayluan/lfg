@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -26,7 +25,25 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MEDIA_ROOT='media/'
+STATIC_URL = '/static/'
+STATIC_ROOT = 'static'
+STATICFILES_DIRS = (
+    ('assets', os.path.join(BASE_DIR, "staticfiles")),
+)
+
+#django authenticaltion variables
 LOGIN_URL = '/registration/'
+
+#django-regitration variables
+ACCOUNT_ACTIVATION_DAYS  = 7
+if DEBUG:
+    EMAIL_HOST = "localhost"
+    EMAIL_PORT = 1025
+    EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+    EMAIL_FILE_PATH = os.path.join(BASE_DIR, "dev")
+
+AUTH_PROFILE_MODULE = 'UserProfile.UserProfile'
 # Application definition
 
 INSTALLED_APPS = (
@@ -38,8 +55,10 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'LookingForGroupMain',
     'south',
-    'markdown_deux'
-
+    'markdown_deux',
+    'registration',
+    'UserProfile',
+    'BaseGroup'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -93,3 +112,4 @@ STATIC_URL = '/static/'
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR,  'templates'),
 )
+

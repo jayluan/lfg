@@ -1,0 +1,9 @@
+Thank you for registering.
+
+Your activation key is: {{activation_key}}
+
+Please use this link to activate your account:
+http://localhost:8000/accounts/activate/{{ activation_key }}/
+
+After activation, you can login to your account using:
+http://localhost:8000/login

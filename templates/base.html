@@ -1,6 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
+
 <html>
   <head>
+
+    <link rel="stylesheet" href="{% static 'assets/staticfiles/jquery-ui.min.css' %}">
+    <script src="{% static 'assets/staticfiles/jquery-ui/external/jquery/jquery.js' %}"></script>
+    <script src="{% static 'assets/staticfiles/jquery-ui/jquery-ui.min.js' %}"></script>
+    <link href="{% static 'assets/staticfiles/themes/themes/ui-lightness/jquery-ui.css' %}" rel="stylesheet" type="text/css" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     {% block head %}{% endblock %}
   </head>
@@ -9,8 +16,8 @@
   <div id="menu">
     <h2>Menu</h2>
     <ul>
-        <li><a href="">Menu Item 1</a></li>
-        <li><a href="">Menu Item 2</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="accounts/login">Login</a></li>
         <li><a href="">Menu Item 3</a></li>
         <li><a href="">Menu Item 4</a></li>
     </ul>

@@ -35,6 +35,8 @@
     {% endif %}
 <br>
 <br>
+
+{% if not user.is_authenticated %}
 <h1>User Login</h1>
 <section>
     {% if form.errors %}
@@ -51,11 +53,13 @@
         <label for="id_password">Password:</label>
         {{ form.password }}
       </p>
-        <input type="hidden" name="next" value="/account/profile" />
+        <input type="hidden" name="next" value="/accounts/profile/" />
       <input type="submit" value="login" />
-      <p><a href="/signup">sign up</a></p>
+      <p><a href="/accounts/register/">sign up</a></p>
     </form>
-  </section>
+</section>
+{% endif %}
 
+{% if user.is_authenticated %}<a href="/logout">logout</a> {% endif %}
 </div> <!-- /container -->
 {% endblock %}
