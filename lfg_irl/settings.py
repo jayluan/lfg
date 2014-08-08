@@ -26,8 +26,9 @@ TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 MEDIA_ROOT='media/'
+STATIC_ROOT = 'static/'
 STATIC_URL = '/static/'
-STATIC_ROOT = 'static'
+
 STATICFILES_DIRS = (
     ('assets', os.path.join(BASE_DIR, "staticfiles")),
 )
