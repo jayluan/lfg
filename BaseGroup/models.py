@@ -7,8 +7,9 @@ class BaseGroup(models.Model):
     description = models.TextField()
     date_created = models.DateTimeField()
     date_action = models.DateTimeField()
+    owner = models.OneToOneField('UserProfile.UserProfile', related_name='creator', null=True)
     users = models.ForeignKey('UserProfile.UserProfile')
-    group_size = models.IntegerField()         #max number of users
+    group_size = models.PositiveIntegerField()         #max number of users
 
     def __unicode__(self):
         return self.name

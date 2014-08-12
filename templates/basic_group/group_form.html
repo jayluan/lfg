@@ -11,6 +11,12 @@
 {% endblock %}
 
 {% block body %}
+{% if form.errors %}
+    <p>NOT VALID</p>
+    {% for errors in form.errors %}
+        {{ errors }}
+    {% endfor %}
+{% endif %}
 <form action="/groups/new/" method="POST">
 {% csrf_token %}
 <table>
