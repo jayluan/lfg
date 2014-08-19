@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+<h1>Group Info Page</h1>
+{% endblock %}
+
+{% block body %}
+{% if group %}
+    <h4><b>Name:</b></h4>
+    <h4><b>{{ group.name|default:"Not Provided" }}</b></h4>
+    <h3>{{ group.description }}</h3>
+    <h3>Created By <a href='/'>{{ owner|default:"Anonymous" }}</a></h3>
+    <h3>Current Members:</h3>
+    {% for person in group.users %}
+        <h2><a href="/">{{ person.first_name }}</a></h2>
+    {% endfor %}
+
+{% endif %}
+{% endblock %}

@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from BaseGroup.forms import BaseGroupForm
-from UserProfile.models import UserProfile
-from datetime import datetime
+from BaseGroup.models import BaseGroup
 from django.http import HttpResponseRedirect
+from django.http import Http404
 
 #create new group view
 @login_required()
@@ -14,17 +14,14 @@ def new_group(request):
         if form.is_valid():
             groupModel = form.save(commit=False) #get the group model under the form
 
-            #lookup user
+            #lookup user to make sure he/she exists
             try:
-                currentUserProfile = UserProfile.objects.get(user=request.user)
-                groupModel.date_created = datetime.now()    #creation time
-                groupModel.owner = currentUserProfile       #owner
-
-                #combine date and time fields
-                groupModel.date_action = datetime.combine(form.date, form.time)
-                form.save()
-                return HttpResponseRedirect('/')
-            except:
+                groupModel.owner = request.user       #owner
+                groupModel = form.save()
+                redirectUrl = '/groups/view/'+str(groupModel.id)
+                return HttpResponseRedirect(redirectUrl)
+            except Exception, e:
+                print str(e)
                 form= BaseGroupForm()   #something went wrong, so give them the default form
 
     #or else we serve up a blank form
@@ -32,3 +29,19 @@ def new_group(request):
         form = BaseGroupForm()
 
     return render(request, "basic_group/group_form.html", {'form':form})
+
+
+#view for an arbitrary group
+@login_required()
+def view_group(request, group_id):
+    owner = None
+    try:
+        baseGroup = BaseGroup.objects.get(id=group_id)
+        if(request.user == baseGroup.owner):
+            owner = baseGroup.owner
+
+    #raise 404 if group can't be found
+    except BaseGroup.DoesNotExist:
+        raise Http404
+
+    return render(request, "basic_group/group_main.html", {'group':baseGroup, 'owner':owner})

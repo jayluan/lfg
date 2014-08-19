@@ -4,7 +4,8 @@
 {% block head %}
 <script>
     $(function() {
-        $( "#id_date_action" ).datepicker();
+        $( "#id_due_date" ).datepicker();
+        $( "#id_due_time" ).timepicker({ 'scrollDefault': 'now' });
     });
 </script>
 <h1>New Group</h1>

@@ -22,7 +22,7 @@ SECRET_KEY = 's+m-l_wdo*yx==)(nsrncv-th16rq)*6ll!1-=)qjdkhnp6cq&'
 DEBUG = True
 
 TEMPLATE_DEBUG = True
-
+USE_TZ = True
 ALLOWED_HOSTS = []
 
 MEDIA_ROOT='media/'
