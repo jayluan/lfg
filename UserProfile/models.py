@@ -12,7 +12,7 @@ class UserProfile(models.Model):
     site = models.TextField()
     timezone = TimeZoneField(default='US/Pacific')
     #lazy evaluation 'LookingForGroupMain.BasicGroup' means look in LookingForGroupMain and find model BasicGroup
-    groups = models.ForeignKey('BaseGroup.BaseGroup', blank=True, null=True)
+#    groups = models.ForeignKey('BaseGroup.BaseGroup', blank=True, null=True)
 
     def __unicode__(self):
         return self.user.username

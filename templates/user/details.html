@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block body %}
-<h1>User Details (<a href="/accounts/editprofile/">Edit</a>)</h1>
+<h1>User Details </h1>
 
 <h2>This page displays details on the user</h2>
 <br>
@@ -16,6 +16,15 @@
     <h4><i>{{ user.first_name|default:"Not Provided" }}</i></h4>
     <h3><b>Email:</b></h3>
     <h4><i>{{ user.email|default:"Not Provided" }}</i></h4>
+    <h3><b>Groups owned:</b></h3>
+    {% for group in user.userprofile.groups.all %}
+        <h4><a href="/groups/view/{{ group.id }}">{{ group.name }}</a></h4>
+    {% endfor %}
+    <h3><b>Member of the following groups:</b></h3>
+    {% for group in user.userprofile.member_of.all %}
+        <h4><a href="/groups/view/{{ group.id }}">{{ group.name }}</a></h4>
+    {% endfor %}
+
 {% endif %}
 <br>
 <br>

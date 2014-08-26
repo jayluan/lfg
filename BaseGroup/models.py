@@ -8,9 +8,16 @@ class BaseGroup(models.Model):
     description = models.TextField()
     date_created = models.DateTimeField()
     date_action = models.DateTimeField()
-    owner = models.ForeignKey(UserProfile, related_name='creator', null=True)
-    users = models.ForeignKey(UserProfile, related_name='members', null=True)
+
+    '''query through UserProfile using the following:
+        p = UserProfile.objects.get(user__username='jay')
+        g = p.groups.get(name='test8')
+    '''
+    owner = models.ForeignKey(UserProfile, related_name='groups', null=True)
+    users = models.ManyToManyField(UserProfile, related_name='member_of', null=True)
     group_size = models.PositiveIntegerField()         #max number of users
+    is_active = models.BooleanField(default=True)
+
 
     def __unicode__(self):
         return self.name

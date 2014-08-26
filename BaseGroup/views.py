@@ -35,13 +35,21 @@ def new_group(request):
 @login_required()
 def view_group(request, group_id):
     owner = None
+    admin = False
+
     try:
         baseGroup = BaseGroup.objects.get(id=group_id)
-        if(request.user == baseGroup.owner):
-            owner = baseGroup.owner
+
+        #make sure the group is still active
+        if not baseGroup.is_active:
+            raise Http404
+
+        if(request.user == baseGroup.owner.user):
+            admin = True
+        owner = baseGroup.owner
 
     #raise 404 if group can't be found
     except BaseGroup.DoesNotExist:
         raise Http404
 
-    return render(request, "basic_group/group_main.html", {'group':baseGroup, 'owner':owner})
+    return render(request, "basic_group/group_main.html", {'group':baseGroup, 'owner':owner, 'admin':admin})

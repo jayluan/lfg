@@ -10,11 +10,19 @@
     <h4><b>Name:</b></h4>
     <h4><b>{{ group.name|default:"Not Provided" }}</b></h4>
     <h3>{{ group.description }}</h3>
-    <h3>Created By <a href='/'>{{ owner|default:"Anonymous" }}</a></h3>
+    <h3>Created By <a href='/user/{{ owner.user.username }}'>{{ owner.user.first_name|default:"Anonymous" }}</a></h3>
     <h3>Current Members:</h3>
-    {% for person in group.users %}
-        <h2><a href="/">{{ person.first_name }}</a></h2>
+    {% for person in group.users.all %}
+        <h2><a href="/">{{ person.user.first_name }}</a></h2>
     {% endfor %}
-
 {% endif %}
+
+{% if admin %}
+    <h1><b>YOU ARE CURRENTLY ADMIN FOR THIS PAGE</b></h1>
+{% else %}
+    <form action="/">
+        <input type="submit" value="APPLY TO JOIN THIS PARTY">
+    </form>
+{% endif %}
+
 {% endblock %}
