@@ -22,13 +22,21 @@ class BaseGroupForm(ModelForm):
     #of due_date and due_time into the actual date_action field
     def save(self, commit=True):
         groupModel = super(BaseGroupForm, self).save(commit=False)
-        groupModel.date_created = timezone.now()
-        d = datetime.combine(self.cleaned_data['due_date'],
-                                                      self.cleaned_data['due_time'])
-        tz = pytz.timezone('US/Pacific')
-        groupModel.date_action = toUTCc(d, tz)
 
-        groupModel = super(BaseGroupForm, self).save(commit=commit)
+        if commit is True:
+            groupModel.date_created = timezone.now()
+            d = datetime.combine(self.cleaned_data['due_date'],
+                                 self.cleaned_data['due_time'])
+            user_timezone = groupModel.owner.timezone
+            if user_timezone.zone in pytz.all_timezones:
+                tz = pytz.timezone(user_timezone.zone)
+            else:
+                raise Exception("BaseGroup save() error: owner timezone not in list of timezones")
+
+            groupModel.date_action = toUTCc(d, tz)
+
+            groupModel = super(BaseGroupForm, self).save(commit=commit)
+
         return groupModel
 
 

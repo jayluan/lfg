@@ -9,6 +9,7 @@ def user_registered_callback(sender, user, request, **kwargs):
     user.first_name = request.POST["first_name"]
     user.last_name = request.POST["last_name"]
     user.save()
+    profile.timezone = request.POST["timezone"]
     profile.save()
 
 #connect all signals

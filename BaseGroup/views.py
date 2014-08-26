@@ -16,7 +16,7 @@ def new_group(request):
 
             #lookup user to make sure he/she exists
             try:
-                groupModel.owner = request.user       #owner
+                groupModel.owner = request.user.userprofile       #owner
                 groupModel = form.save()
                 redirectUrl = '/groups/view/'+str(groupModel.id)
                 return HttpResponseRedirect(redirectUrl)

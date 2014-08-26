@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'LookingForGroupMain',
     'south',
+    'timezone_field',
     'markdown_deux',
     'registration',
     'UserProfile',
