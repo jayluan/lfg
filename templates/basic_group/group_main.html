@@ -2,7 +2,9 @@
 
 
 {% block head %}
+    <script src="{{ STATIC_URL }}BaseGroup/js/join_group.js"></script>
 <h1>Group Info Page</h1>
+
 {% endblock %}
 
 {% block body %}
@@ -12,17 +14,17 @@
     <h3>{{ group.description }}</h3>
     <h3>Created By <a href='/user/{{ owner.user.username }}'>{{ owner.user.first_name|default:"Anonymous" }}</a></h3>
     <h3>Current Members:</h3>
+    <div id="group-members">
     {% for person in group.users.all %}
-        <h2><a href="/">{{ person.user.first_name }}</a></h2>
+        <h2><a href="/user/{{ person.user.username }}">{{ person.user.first_name }}</a></h2>
     {% endfor %}
+    </div>
 {% endif %}
 
 {% if admin %}
     <h1><b>YOU ARE CURRENTLY ADMIN FOR THIS PAGE</b></h1>
 {% else %}
-    <form action="/">
-        <input type="submit" value="APPLY TO JOIN THIS PARTY">
-    </form>
+    <button id="group-join-{{ group.id }}" class="join">Join Group</button>
 {% endif %}
 
 {% endblock %}

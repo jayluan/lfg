@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from BaseGroup.forms import BaseGroupForm
 from BaseGroup.models import BaseGroup
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.http import Http404
+from django.shortcuts import get_object_or_404
 
 #create new group view
 @login_required()
@@ -53,3 +54,12 @@ def view_group(request, group_id):
         raise Http404
 
     return render(request, "basic_group/group_main.html", {'group':baseGroup, 'owner':owner, 'admin':admin})
+
+
+#ajax call for joininig a group
+@login_required()
+def join(request):
+    group = get_object_or_404(BaseGroup, id=request.POST.get('groupId') )
+    group.users.add(request.user.userprofile)
+    group.save()
+    return HttpResponse()

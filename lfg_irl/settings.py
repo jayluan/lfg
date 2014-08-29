@@ -31,6 +31,7 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     ('assets', os.path.join(BASE_DIR, "staticfiles")),
+    ('BaseGroup', os.path.join(BASE_DIR, "BaseGroup/static"))
 )
 
 #django authenticaltion variables

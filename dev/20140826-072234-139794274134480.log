@@ -3,16 +3,16 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 Subject: Please Activate Your Account
 From: webmaster@localhost
-To: C@c.com
-Date: Thu, 17 Jul 2014 23:54:49 -0000
-Message-ID: <20140717235449.12961.34436@ubuntu>
+To: abs@bs.com
+Date: Tue, 26 Aug 2014 07:22:34 -0000
+Message-ID: <20140826072234.7598.95704@ubuntu>
 
 Thank you for registering.
 
-Your activation key is: d8b302d1995b9ce5abc27a9a2bb7a0283f01778a
+Your activation key is: fe47826bbf51eb91532d865531662e6a9e74c372
 
 Please use this link to activate your account:
-http://localhost:8000/accounts/activate/d8b302d1995b9ce5abc27a9a2bb7a0283f01778a/
+http://localhost:8000/accounts/activate/fe47826bbf51eb91532d865531662e6a9e74c372/
 
 After activation, you can login to your account using:
 http://localhost:8000/login
