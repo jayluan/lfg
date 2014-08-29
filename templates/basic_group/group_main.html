@@ -23,6 +23,8 @@
 
 {% if admin %}
     <h1><b>YOU ARE CURRENTLY ADMIN FOR THIS PAGE</b></h1>
+{% elif is_member %}
+    <button id="group-leave-{{ group.id }}" class="leave">Leave Group</button>
 {% else %}
     <button id="group-join-{{ group.id }}" class="join">Join Group</button>
 {% endif %}

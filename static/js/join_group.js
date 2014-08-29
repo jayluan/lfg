@@ -38,5 +38,26 @@ $(document).ready(function() {
     $("button.join").click(function(){
         var groupId = parseInt(this.id.split("-")[2]);
         return join_group(groupId);
-    })
+    });
+
+    function leave_group(groupId){
+        $.ajax({
+            type: "POST",
+            url: "/groups/leave/",
+            data: {"groupId": groupId},
+            success: function(){
+                $("group-leave-"+groupId).hide();
+            },
+            headers: {
+                'X-CSRFToken': csrftoken
+            }
+        });
+
+        return false;
+    }
+
+    $("button.leave").click(function(){
+        var groupId = parseInt(this.id.split("-")[2]);
+        return leave_group(groupId);
+    });
 });

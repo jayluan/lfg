@@ -37,6 +37,7 @@ def new_group(request):
 def view_group(request, group_id):
     owner = None
     admin = False
+    is_member = False
 
     try:
         baseGroup = BaseGroup.objects.get(id=group_id)
@@ -49,11 +50,13 @@ def view_group(request, group_id):
             admin = True
         owner = baseGroup.owner
 
+        is_member = request.user.userprofile in baseGroup.users.all()
+
     #raise 404 if group can't be found
     except BaseGroup.DoesNotExist:
         raise Http404
 
-    return render(request, "basic_group/group_main.html", {'group':baseGroup, 'owner':owner, 'admin':admin})
+    return render(request, "basic_group/group_main.html", {'group':baseGroup, 'owner':owner, 'admin':admin, 'is_member':is_member})
 
 
 #ajax call for joininig a group
@@ -62,4 +65,14 @@ def join(request):
     group = get_object_or_404(BaseGroup, id=request.POST.get('groupId') )
     group.users.add(request.user.userprofile)
     group.save()
+    return HttpResponse()
+
+#ajax call for leaving a group
+@login_required()
+def leave(request):
+    group = get_object_or_404(BaseGroup, id=request.POST.get('groupId') )
+    if(request.user.userprofile in group.users.all()):
+        group.users.remove(request.user.userprofile)
+        group.save()
+
     return HttpResponse()
