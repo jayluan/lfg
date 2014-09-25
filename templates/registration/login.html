@@ -28,12 +28,9 @@
         <label for="id_password">Password:</label>
         {{ form.password }}
       </p>
-      {% if next %}
-        <input type="hidden" name="next" value="/user/{{ form.username }}" />
-      {% else %}
-        <input type="hidden" name="next" value="/" />
-      {% endif %}
+
       <input type="submit" value="login" />
+      <input type="hidden" name="next" value="{{ next }}" />
     </form>
   </section>
 {% endblock %}

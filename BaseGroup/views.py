@@ -2,9 +2,11 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from BaseGroup.forms import BaseGroupForm
 from BaseGroup.models import BaseGroup
+from BaseGroup.table import  GroupTable
 from django.http import HttpResponseRedirect, HttpResponse
 from django.http import Http404
 from django.shortcuts import get_object_or_404
+from django_tables2   import RequestConfig
 
 #create new group view
 @login_required()
@@ -58,6 +60,11 @@ def view_group(request, group_id):
 
     return render(request, "basic_group/group_main.html", {'group':baseGroup, 'owner':owner, 'admin':admin, 'is_member':is_member})
 
+#returns a list of groups that are registered
+def view_group_list(request):
+    group_list = GroupTable(BaseGroup.objects.all())
+    RequestConfig(request, paginate={"per_page": 50}).configure(group_list)
+    return render(request, "basic_group/group_list.html", {"groups": group_list})
 
 #ajax call for joininig a group
 @login_required()
@@ -65,7 +72,7 @@ def join(request):
     group = get_object_or_404(BaseGroup, id=request.POST.get('groupId') )
     group.users.add(request.user.userprofile)
     group.save()
-    return HttpResponse()
+    return render(request, "basic_group/group_members.html", {'group':group})
 
 #ajax call for leaving a group
 @login_required()
@@ -75,4 +82,5 @@ def leave(request):
         group.users.remove(request.user.userprofile)
         group.save()
 
-    return HttpResponse()
+    return render(request, "basic_group/group_members.html", {'group':group})
+

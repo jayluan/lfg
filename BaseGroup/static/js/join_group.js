@@ -22,8 +22,12 @@ $(document).ready(function() {
             type: "POST",
             url: "/groups/join/",
             data: {"groupId": groupId},
-            success: function(){
-                $("group-join-"+groupId).hide();
+            success: function(data){
+                if(!$('#group-leave'+groupId).length)
+                    add_button('Leave', groupId);
+                $("#group-join-"+groupId).hide();
+                $("#group-leave-"+groupId).show();
+                $("#members").html(data);
             },
             headers: {
                 'X-CSRFToken': csrftoken
@@ -35,9 +39,9 @@ $(document).ready(function() {
 
 
 
-    $("button.join").click(function(){
+    $("button.join").on("click", function(){
         var groupId = parseInt(this.id.split("-")[2]);
-        return join_group(groupId);
+        join_group(groupId);
     });
 
     function leave_group(groupId){
@@ -45,8 +49,12 @@ $(document).ready(function() {
             type: "POST",
             url: "/groups/leave/",
             data: {"groupId": groupId},
-            success: function(){
-                $("group-leave-"+groupId).hide();
+            success: function(data){
+                if(!$('#group-join'+groupId).length)
+                    add_button('Join', groupId);
+                $("#group-leave-"+groupId).hide();
+                $("#group-join"+groupId).show();
+                $("#members").html(data);
             },
             headers: {
                 'X-CSRFToken': csrftoken
@@ -56,8 +64,16 @@ $(document).ready(function() {
         return false;
     }
 
-    $("button.leave").click(function(){
+    $("button.leave").on("click", function(){
         var groupId = parseInt(this.id.split("-")[2]);
-        return leave_group(groupId);
+        leave_group(groupId);
     });
+
+    function add_button(state, groupId){
+        id_name = 'group-' + state.toLowerCase() + '-' + groupId.toString();
+        var $something= $('<button/>').attr({ id:id_name, class:state.toLowerCase()});
+        $something.html(state + ' Group');
+    //    var str = '<button id="group-' + state + '-' + groupId.toString() + 'class="' + state + '">'
+        var $btn = $("#manage").append($something);
+    }
 });

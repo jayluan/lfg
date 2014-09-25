@@ -20,7 +20,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'LookingForGroupMain.views.index'),
-    url(r'^user/(?P<user>[a-zA-Z0-9]+)', 'LookingForGroupMain.views.user_detail'),
+    url(r'^user/(?P<user>[a-zA-Z0-9]+)', 'LookingForGroupMain.views.user_detail', name='user_detail'),
     url(r'^login/$', 'django.contrib.auth.views.login'),
     url(r'^logout/$', 'LookingForGroupMain.views.logout_view'),
 

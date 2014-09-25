@@ -1,0 +1,4 @@
+<h3>Current Members:</h3>
+{% for person in group.users.all %}
+    <h2><a href="/user/{{ person.user.username }}">{{ person.user.first_name }}</a></h2>
+{% endfor %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load render_table from django_tables2 %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}django_tables2/themes/paleblue/css/screen.css" />
+<h1>Group List</h1>
+{% endblock %}
+
+{% block body %}
+    {% render_table groups %}
+{% endblock %}

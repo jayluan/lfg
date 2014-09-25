@@ -13,14 +13,12 @@
     <h4><b>{{ group.name|default:"Not Provided" }}</b></h4>
     <h3>{{ group.description }}</h3>
     <h3>Created By <a href='/user/{{ owner.user.username }}'>{{ owner.user.first_name|default:"Anonymous" }}</a></h3>
-    <h3>Current Members:</h3>
-    <div id="group-members">
-    {% for person in group.users.all %}
-        <h2><a href="/user/{{ person.user.username }}">{{ person.user.first_name }}</a></h2>
-    {% endfor %}
+    <div id="members">
+    {% include "basic_group/group_members.html" %}
     </div>
 {% endif %}
 
+<div id="manage">
 {% if admin %}
     <h1><b>YOU ARE CURRENTLY ADMIN FOR THIS PAGE</b></h1>
 {% elif is_member %}
@@ -28,5 +26,6 @@
 {% else %}
     <button id="group-join-{{ group.id }}" class="join">Join Group</button>
 {% endif %}
+</div>
 
 {% endblock %}
